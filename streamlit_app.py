@@ -1,17 +1,15 @@
 import streamlit as st
-import joblib
-import numpy as np
+import pickle
 import pandas as pd
 
-# Загрузка модели и кодировщиков
-model = joblib.load('random_forest_model.pkl')
-label_encoders = joblib.load('label_encoders.pkl')
+# Загрузка модели
+@st.cache_resource
+def load_model():
+    with open('random_forest_model.pkl', 'rb') as file:
+        loaded_model = pickle.load(file)
+    return loaded_model
 
-# Функция для кодирования категориальных данных
-def encode_inputs(df, encoders):
-    for col in ['Gender', 'Stress_Level', 'Support_Systems_Access', 'Work_Environment_Impact', 'Online_Support_Usage']:
-        df[col] = encoders[col].transform(df[col])
-    return df
+model = load_model()
 
 # Заголовок приложения
 st.title("Предсказание состояния психического здоровья")
@@ -48,13 +46,9 @@ input_data = pd.DataFrame({
     'Online_Support_Usage': [online_support_usage]
 })
 
-# Закодируем категориальные данные
-input_data_encoded = encode_inputs(input_data, label_encoders)
+# Вы можете добавить код для кодирования категориальных переменных, если требуется
 
 # Предсказание состояния психического здоровья
 if st.button("Предсказать"):
-    prediction = model.predict(input_data_encoded)
-    predicted_class = label_encoders['Mental_Health_Status'].inverse_transform(prediction)
-    
-    # Вывод предсказания
-    st.subheader(f"Предсказанное состояние психического здоровья: {predicted_class[0]}")
+    prediction = model.predict(input_data)
+    st.subheader(f"Предсказанное состояние психического здоровья: {prediction[0]}")
