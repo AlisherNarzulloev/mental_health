@@ -1,5 +1,4 @@
 import streamlit as st
-from catboost import CatBoostClassifier
 import pickle
 
 st.title('Mental Health Prediction')
