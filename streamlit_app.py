@@ -1,5 +1,6 @@
 import streamlit as st
 import pickle
+from catboost import CatBoostClassifier
 
 st.title('Mental Health Prediction')
 
@@ -17,9 +18,9 @@ stress_level_encoded = stress_mapping[stress_level]
 
 input_data = [[age, technology_usage, social_media_usage, gaming_hours, screen_time_hours, stress_level_encoded, physical_activity]]
 
-with open('catboost_model.pkl', 'wb') as f:
-    loaded_model = pickle.load(f)
+model = CatBoostClassifier()
+model.load_model('catboost_model.cbm')
 
 if st.button('Predict'):
-    prediction = loaded_model.predict(input_data)
+    prediction = model.predict(input_data)
     st.write(f'Mental Health Status Prediction: {prediction[0]}')
