@@ -1,4 +1,4 @@
 streamlit
 pandas
 scikit-learn
-pickle5  # Для работы с pickle (если используется Python < 3.8)
+pickle
