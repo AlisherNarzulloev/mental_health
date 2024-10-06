@@ -17,7 +17,7 @@ stress_level_encoded = stress_mapping[stress_level]
 
 input_data = [[age, technology_usage, social_media_usage, gaming_hours, screen_time_hours, stress_level_encoded, physical_activity]]
 
-with open('catboost_model.pkl', 'rb') as f:
+with open('catboost_model.pkl', 'wb') as f:
     loaded_model = pickle.load(f)
 
 if st.button('Predict'):
