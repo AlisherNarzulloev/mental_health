@@ -1,5 +1,10 @@
 import streamlit as st
 import pickle
+from catboost import CatBoostClassifier
+
+# Загрузка модели
+model = CatBoostClassifier()
+loaded_model = model.load_model('catboost_model.pkl')
 
 st.title('Mental Health Prediction')
 
@@ -14,9 +19,7 @@ physical_activity = st.number_input('Physical Activity Hours:', min_value=0.0, m
 input_data = [[age, technology_usage, social_media_usage, gaming_hours, screen_time_hours, stress_level, physical_activity]]
 
 if st.button('Predict'):
-    with open('catboost_model.pkl', 'rb') as f:
-        loaded_model = pickle.load(f)
-        prediction = loaded_model.predict(input_data)
+    prediction = loaded_model.predict(input_data)
 
 
 
