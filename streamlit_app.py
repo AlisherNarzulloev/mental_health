@@ -1,5 +1,6 @@
 import streamlit as st
 from catboost import CatBoostClassifier
+import os
 
 st.title('Mental Health Prediction')
 
@@ -17,8 +18,10 @@ stress_level_encoded = stress_mapping[stress_level]
 
 input_data = [[age, technology_usage, social_media_usage, gaming_hours, screen_time_hours, stress_level_encoded, physical_activity]]
 
+model_path = os.path.join(os.getcwd(), 'catboost_model.cbm')
+
 model = CatBoostClassifier()
-model.load_model('catboost_model.cbm')
+model.load_model(model_path)
 
 if st.button('Predict'):
     prediction = model.predict(input_data)
