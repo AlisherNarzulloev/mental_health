@@ -8,7 +8,7 @@ import pandas as pd
 #         loaded_model = pickle.load(file)
 #     return loaded_model
 
-model = pickle.load(open('random_forest_model.pkl', 'rb'))
+model = pickle.load(open('./random_forest_model.pkl', 'rb'))
 
 st.title("Предсказание состояния психического здоровья")
 
