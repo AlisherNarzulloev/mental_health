@@ -2,13 +2,14 @@ import streamlit as st
 import pickle
 import pandas as pd
 
-# Загрузка модели
+# Загрузка модели из файла
 @st.cache_resource
 def load_model():
     with open('random_forest_model.pkl', 'rb') as file:
         loaded_model = pickle.load(file)
     return loaded_model
 
+# Загрузка модели
 model = load_model()
 
 # Заголовок приложения
@@ -46,9 +47,21 @@ input_data = pd.DataFrame({
     'Online_Support_Usage': [online_support_usage]
 })
 
-# Вы можете добавить код для кодирования категориальных переменных, если требуется
+# Добавляем обработку категориальных данных, если они были закодированы
+def preprocess_input(df):
+    # Если вы использовали кодировщик (LabelEncoder) для категориальных данных, закодируйте здесь
+    # Пример:
+    df['Gender'] = 1 if gender == "Male" else 0
+    df['Stress_Level'] = 0 if stress_level == "Low" else 1 if stress_level == "Medium" else 2
+    df['Support_Systems_Access'] = 1 if support_systems_access == "Yes" else 0
+    df['Work_Environment_Impact'] = 1 if work_environment_impact == "Positive" else 0
+    df['Online_Support_Usage'] = 1 if online_support_usage == "Yes" else 0
+    return df
 
-# Предсказание состояния психического здоровья
+# Применяем предобработку к данным
+input_data = preprocess_input(input_data)
+
+# Когда пользователь нажимает на кнопку предсказать
 if st.button("Предсказать"):
     prediction = model.predict(input_data)
     st.subheader(f"Предсказанное состояние психического здоровья: {prediction[0]}")
