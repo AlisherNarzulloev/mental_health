@@ -3,9 +3,9 @@ import pickle
 import pandas as pd
 
 @st.cache_resource
-def load_model():
+async def load_model():
     with open('random_forest_model.pkl', 'rb') as f:
-        model = pickle.load(f)
+        await model = pickle.load(f)
     return model
 
 model = load_model()
