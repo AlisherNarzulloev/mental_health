@@ -2,14 +2,6 @@ import streamlit as st
 import pickle
 import pandas as pd
 
-@st.cache_resource
-def load_model():
-    with open('random_forest_model.pkl', 'rb') as f:
-        model = pickle.load(f)
-    return model
-
-model = load_model()
-
 st.title("Предсказание состояния психического здоровья")
 
 age = st.number_input("Возраст", min_value=18, max_value=100, value=25)
@@ -42,5 +34,4 @@ input_data = pd.DataFrame({
 })
 
 if st.button("Предсказать"):
-    prediction = model.predict(input_data)
-    st.subheader(f"Предсказанное состояние ментального здоровья: {'Excellent' if prediction[0] == 1 else 'Не Excellent'}")
+    st.subheader(f"Предсказанное состояние ментального здоровья:)
