@@ -54,3 +54,4 @@ input_data = preprocess_input(input_data)
 if st.button("Предсказать"):
     # prediction = model.predict(input_data)
     # st.subheader(f"Предсказанное состояние психического здоровья: {prediction[0]}")
+    print('hi')
