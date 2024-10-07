@@ -1,14 +1,5 @@
 import streamlit as st
-import pickle
 import pandas as pd
-
-# @st.cache_resource
-# def load_model():
-#     with open('random_forest_model.pkl', 'rb') as file:
-#         loaded_model = pickle.load(file)
-#     return loaded_model
-
-# model = pickle.load(open('./random_forest_model.pkl', 'rb'))
 
 st.title("Предсказание состояния психического здоровья")
 
@@ -52,6 +43,4 @@ def preprocess_input(df):
 input_data = preprocess_input(input_data)
 
 if st.button("Предсказать"):
-    # prediction = model.predict(input_data)
-    # st.subheader(f"Предсказанное состояние психического здоровья: {prediction[0]}")
     print('hi')
